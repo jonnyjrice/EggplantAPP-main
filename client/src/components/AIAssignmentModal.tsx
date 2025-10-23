@@ -203,8 +203,8 @@ export default function AubrieAssignmentModal({ isOpen, onClose, courseId }: Aub
     <Dialog.Root open={isOpen} onOpenChange={onClose}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/50 z-50" />
-        <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-xl z-50 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-          <div className="bg-white rounded-lg shadow-xl p-8 w-full">
+        <Dialog.Content style={{ backgroundColor: 'white' }} className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 w-[75vw] max-h-[90vh] overflow-y-auto p-8">
+          <div>
             <div className="flex items-center justify-between mb-6">
               <Dialog.Title className="text-2xl font-bold text-gray-800">
                 {showQuestions ? 'Review & Edit Generated Questions' : 'Create New Assignment with Aubrie'}
@@ -284,7 +284,7 @@ export default function AubrieAssignmentModal({ isOpen, onClose, courseId }: Aub
                   </div>
                 </div>
 
-                <div className="flex justify-end space-x-4 pt-6 border-t border-gray-200 mt-8">
+                <div className="flex justify-center space-x-8 pt-6 border-t border-gray-200 mt-8">
                   <button
                     type="button"
                     onClick={onClose}

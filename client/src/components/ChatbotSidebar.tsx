@@ -29,7 +29,7 @@ export default function ChatbotSidebar() {
   }, [])
 
   const navigationButtons = [
-    { label: "Assignment", path: "/lesson-plan", icon: "📝" },
+    { label: "Lesson Plan", path: "/lesson-plan", icon: "📝" },
     { label: "Project", path: "/generate-project", icon: "🎯" },
     { label: "Quiz", path: "/multiple-choice-quiz", icon: "✅" },
     { label: "Test", path: "/open-ended-quiz", icon: "📋" },
