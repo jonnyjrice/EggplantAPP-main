@@ -120,7 +120,7 @@ export default function AssignmentList({ courseId }: AssignmentListProps) {
 
   const handleAssignmentClick = (assignmentId: number) => {
     // Navigate to assignment page
-    router.push(`/course/${courseId}/assignment/${assignmentId}`)
+    router.push(`/student/assignment/${assignmentId}?classId=${courseId}`)
   }
 
   if (loading) {
