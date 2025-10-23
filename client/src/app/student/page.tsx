@@ -40,6 +40,36 @@ export default function StudentHomePage() {
     }
   }
 
+  const getGradeColor = (grade: string) => {
+    switch (grade) {
+      case 'A+':
+      case 'A':
+        return '#10b981' // green-500
+      case 'A-':
+        return '#34d399' // green-400
+      case 'B+':
+        return '#84cc16' // lime-500
+      case 'B':
+        return '#eab308' // yellow-500
+      case 'B-':
+        return '#f59e0b' // amber-500
+      case 'C+':
+        return '#f97316' // orange-500
+      case 'C':
+        return '#ef4444' // red-500
+      case 'C-':
+        return '#dc2626' // red-600
+      case 'D+':
+      case 'D':
+      case 'D-':
+        return '#b91c1c' // red-700
+      case 'F':
+        return '#991b1b' // red-800
+      default:
+        return '#6b7280' // gray-500
+    }
+  }
+
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -56,16 +86,16 @@ export default function StudentHomePage() {
 
   // Mock enrolled classes data for student view
   const enrolledClasses = [
-    { id: 'math101', title: 'Math 101', subtitle: 'Calculus I', icon: '🧮', instructor: 'Dr. Smith', term: '2024-2025' },
-    { id: 'science201', title: 'Science 201', subtitle: 'General Chemistry', icon: '🔬', instructor: 'Prof. Johnson', term: '2024-2025' },
-    { id: 'english101', title: 'English 101', subtitle: 'Composition', icon: '📚', instructor: 'Dr. Williams', term: '2023-2024' },
-    { id: 'history150', title: 'History 150', subtitle: 'World History', icon: '🌍', instructor: 'Prof. Brown', term: '2024-2025' },
-    { id: 'physics201', title: 'Physics 201', subtitle: 'Mechanics', icon: '⚡', instructor: 'Dr. Davis', term: '2023-2024' },
-    { id: 'art101', title: 'Art 101', subtitle: 'Drawing Fundamentals', icon: '🎨', instructor: 'Ms. Wilson', term: '2024-2025' },
-    { id: 'music101', title: 'Music 101', subtitle: 'Music Theory', icon: '🎵', instructor: 'Mr. Garcia', term: '2024-2025' },
-    { id: 'biology201', title: 'Biology 201', subtitle: 'Cell Biology', icon: '🧬', instructor: 'Dr. Martinez', term: '2023-2024' },
-    { id: 'psychology101', title: 'Psychology 101', subtitle: 'Introduction to Psychology', icon: '🧠', instructor: 'Prof. Anderson', term: '2024-2025' },
-    { id: 'computer101', title: 'Computer Science 101', subtitle: 'Programming Fundamentals', icon: '💻', instructor: 'Dr. Taylor', term: '2024-2025' }
+    { id: 'math101', title: 'Math 101', subtitle: 'Calculus I', icon: '🧮', instructor: 'Dr. Smith', term: '2024-2025', currentGrade: 'A-', gradePoints: 91.5 },
+    { id: 'science201', title: 'Science 201', subtitle: 'General Chemistry', icon: '🔬', instructor: 'Prof. Johnson', term: '2024-2025', currentGrade: 'B+', gradePoints: 87.2 },
+    { id: 'english101', title: 'English 101', subtitle: 'Composition', icon: '📚', instructor: 'Dr. Williams', term: '2023-2024', currentGrade: 'A', gradePoints: 94.0 },
+    { id: 'history150', title: 'History 150', subtitle: 'World History', icon: '🌍', instructor: 'Prof. Brown', term: '2024-2025', currentGrade: 'B', gradePoints: 83.7 },
+    { id: 'physics201', title: 'Physics 201', subtitle: 'Mechanics', icon: '⚡', instructor: 'Dr. Davis', term: '2023-2024', currentGrade: 'A-', gradePoints: 90.1 },
+    { id: 'art101', title: 'Art 101', subtitle: 'Drawing Fundamentals', icon: '🎨', instructor: 'Ms. Wilson', term: '2024-2025', currentGrade: 'A+', gradePoints: 97.3 },
+    { id: 'music101', title: 'Music 101', subtitle: 'Music Theory', icon: '🎵', instructor: 'Mr. Garcia', term: '2024-2025', currentGrade: 'B+', gradePoints: 88.9 },
+    { id: 'biology201', title: 'Biology 201', subtitle: 'Cell Biology', icon: '🧬', instructor: 'Dr. Martinez', term: '2023-2024', currentGrade: 'A', gradePoints: 92.8 },
+    { id: 'psychology101', title: 'Psychology 101', subtitle: 'Introduction to Psychology', icon: '🧠', instructor: 'Prof. Anderson', term: '2024-2025', currentGrade: 'A-', gradePoints: 89.4 },
+    { id: 'computer101', title: 'Computer Science 101', subtitle: 'Programming Fundamentals', icon: '💻', instructor: 'Dr. Taylor', term: '2024-2025', currentGrade: 'A+', gradePoints: 96.1 }
   ]
 
   // Filter classes based on search and term
@@ -196,11 +226,19 @@ export default function StudentHomePage() {
               {filteredClasses.map((classItem) => (
                 <div key={classItem.id} className="class-card student-class-card" onClick={() => handleClassClick(classItem.id)}>
                   <div className="class-content">
-                    <div className="class-icon">{classItem.icon}</div>
+                    <div className="class-header">
+                      <div className="class-icon">{classItem.icon}</div>
+                      <div className="class-grade" style={{ color: getGradeColor(classItem.currentGrade) }}>
+                        {classItem.currentGrade}
+                      </div>
+                    </div>
                     <div className="class-title">{classItem.title}</div>
                     <div className="class-subtitle">{classItem.subtitle}</div>
                     <div className="class-instructor">Instructor: {classItem.instructor}</div>
-                    <div className="class-term">{classItem.term}</div>
+                    <div className="class-meta">
+                      <div className="class-term">{classItem.term}</div>
+                      <div className="class-grade-points">{classItem.gradePoints}%</div>
+                    </div>
                   </div>
                 </div>
               ))}
