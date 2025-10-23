@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 interface Assignment {
   assignmentId: number
@@ -19,6 +20,7 @@ export default function AssignmentList({ courseId }: AssignmentListProps) {
   const [assignments, setAssignments] = useState<Assignment[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const router = useRouter()
 
   useEffect(() => {
     const fetchAssignments = async () => {
@@ -117,9 +119,8 @@ export default function AssignmentList({ courseId }: AssignmentListProps) {
   }
 
   const handleAssignmentClick = (assignmentId: number) => {
-    // TODO: Navigate to assignment detail page or open assignment
-    console.log('Clicked assignment:', assignmentId)
-    alert(`Assignment ${assignmentId} clicked! (Assignment detail page will be implemented next)`)
+    // Navigate to assignment page
+    router.push(`/course/${courseId}/assignment/${assignmentId}`)
   }
 
   if (loading) {
