@@ -2,6 +2,7 @@
 
 import { useRouter, usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
+import ViewSwitcher from './ViewSwitcher'
 
 export default function DashboardHeader() {
   const router = useRouter()
@@ -88,7 +89,10 @@ export default function DashboardHeader() {
         <div className="logo-placeholder">🍆</div>
         <span className="service-name">EggplantEDU</span>
       </div>
-      <h1 className={`page-title ${isTitleChanging ? 'changing' : ''}`}>{currentTitle}</h1>
+      <div className="header-center">
+        <h1 className={`page-title ${isTitleChanging ? 'changing' : ''}`}>{currentTitle}</h1>
+        <ViewSwitcher />
+      </div>
       <div className="account-section">
         <div className="account-settings">
           <div className="profile-picture">

@@ -2504,3 +2504,136 @@ body {
     gap: 0.5rem;
   }
 }
+
+/* View Switcher Styles */
+.view-switcher {
+  margin-top: 0.5rem;
+}
+
+.view-switcher-container {
+  display: flex;
+  background-color: #f7fafc;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+  border: 1px solid #e2e8f0;
+}
+
+.view-switcher-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #718096;
+}
+
+.view-switcher-btn:hover {
+  background-color: #edf2f7;
+  color: #4a5568;
+}
+
+.view-switcher-btn.active {
+  background-color: #ffffff;
+  color: #2d3748;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.view-icon {
+  font-size: 1rem;
+}
+
+.view-label {
+  font-weight: 500;
+}
+
+/* Header Center Layout */
+.header-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Student Dashboard Styles */
+.student-dashboard-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+  height: 100%;
+}
+
+.student-class-page {
+  height: 100vh;
+  background-color: #fafafa;
+}
+
+.student-class-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.student-class-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 2rem;
+  flex-shrink: 0;
+}
+
+.student-class-content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.student-class-card {
+  border: 2px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.student-class-card:hover {
+  border-color: #4299e1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+}
+
+.class-instructor {
+  color: #718096;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* Responsive Design for Student Pages */
+@media (max-width: 768px) {
+  .student-dashboard-layout {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .student-class-header {
+    padding: 1rem;
+  }
+  
+  .student-class-content {
+    padding: 1rem;
+  }
+  
+  .header-center {
+    gap: 0.25rem;
+  }
+  
+  .view-switcher-btn {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8rem;
+  }
+  
+  .view-icon {
+    font-size: 0.875rem;
+  }
+}
