@@ -204,22 +204,22 @@ export default function AIAssignmentModal({ isOpen, onClose, courseId }: AIAssig
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/50 z-50" />
         <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-xl z-50 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-          <div className="p-6">
+          <div className="bg-white rounded-lg shadow-xl p-8 w-full">
             <div className="flex items-center justify-between mb-6">
-              <Dialog.Title className="text-xl font-semibold text-gray-900">
+              <Dialog.Title className="text-2xl font-bold text-gray-800">
                 {showQuestions ? 'Review & Edit Generated Questions' : 'Create New AI Assignment'}
               </Dialog.Title>
               <Dialog.Close asChild>
-                <button className="text-gray-400 hover:text-gray-600 transition-colors">
-                  <X size={20} />
+                <button className="text-gray-500 hover:text-gray-700 transition-colors p-1 rounded-full">
+                  <X size={24} />
                 </button>
               </Dialog.Close>
             </div>
 
             {!showQuestions ? (
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="assignmentTitle" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="assignmentTitle" className="block text-base font-semibold text-gray-800 mb-2">
                     Assignment Title
                   </label>
                   <input
@@ -229,13 +229,13 @@ export default function AIAssignmentModal({ isOpen, onClose, courseId }: AIAssig
                     value={formData.assignmentTitle}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
                     placeholder="e.g., Week 3: Photosynthesis Quiz"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="topicDescription" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="topicDescription" className="block text-base font-semibold text-gray-800 mb-2">
                     Topic Description
                   </label>
                   <textarea
@@ -245,48 +245,50 @@ export default function AIAssignmentModal({ isOpen, onClose, courseId }: AIAssig
                     onChange={handleInputChange}
                     required
                     rows={4}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
                     placeholder="e.g., The process of photosynthesis, including the light-dependent and light-independent reactions, chlorophyll, and stomata."
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="numQuestions" className="block text-sm font-medium text-gray-700 mb-1">
-                    Number of Questions
-                  </label>
-                  <input
-                    type="number"
-                    id="numQuestions"
-                    name="numQuestions"
-                    value={formData.numQuestions}
-                    onChange={handleInputChange}
-                    required
-                    min="1"
-                    max="50"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  />
+                <div className="grid grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="numQuestions" className="block text-base font-semibold text-gray-800 mb-2">
+                      Number of Questions
+                    </label>
+                    <input
+                      type="number"
+                      id="numQuestions"
+                      name="numQuestions"
+                      value={formData.numQuestions}
+                      onChange={handleInputChange}
+                      required
+                      min="1"
+                      max="50"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="questionType" className="block text-base font-semibold text-gray-800 mb-2">
+                      Question Type
+                    </label>
+                    <select
+                      id="questionType"
+                      name="questionType"
+                      value={formData.questionType}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+                    >
+                      <option value="MultipleChoice">Multiple Choice</option>
+                    </select>
+                  </div>
                 </div>
 
-                <div>
-                  <label htmlFor="questionType" className="block text-sm font-medium text-gray-700 mb-1">
-                    Question Type
-                  </label>
-                  <select
-                    id="questionType"
-                    name="questionType"
-                    value={formData.questionType}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  >
-                    <option value="MultipleChoice">Multiple Choice</option>
-                  </select>
-                </div>
-
-                <div className="flex justify-end space-x-3 pt-4">
+                <div className="flex justify-end space-x-4 pt-6 border-t border-gray-200 mt-8">
                   <button
                     type="button"
                     onClick={onClose}
-                    className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="px-6 py-3 text-base font-semibold text-gray-800 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400 transition-all"
                     disabled={isSubmitting}
                   >
                     Cancel
@@ -294,56 +296,56 @@ export default function AIAssignmentModal({ isOpen, onClose, courseId }: AIAssig
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-6 py-3 text-base font-semibold text-white bg-indigo-600 border border-transparent rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-60 disabled:cursor-not-allowed transition-all"
                   >
                     {isSubmitting ? 'Generating...' : 'Generate Assignment'}
                   </button>
                 </div>
               </form>
             ) : (
-              <div className="space-y-6">
+              <div className="space-y-8">
                 {/* Assignment Info */}
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">{formData.assignmentTitle}</h3>
-                  <p className="text-sm text-gray-600">{formData.topicDescription}</p>
-                  <p className="text-sm text-gray-500 mt-2">{generatedQuestions.length} questions generated</p>
+                <div className="bg-indigo-50 p-6 rounded-xl">
+                  <h3 className="text-xl font-bold text-indigo-900 mb-2">{formData.assignmentTitle}</h3>
+                  <p className="text-base text-indigo-800">{formData.topicDescription}</p>
+                  <p className="text-sm text-indigo-600 mt-3">{generatedQuestions.length} questions generated</p>
                 </div>
 
                 {/* Questions List */}
-                <div className="space-y-6">
+                <div className="space-y-8">
                   {generatedQuestions.map((question, questionIndex) => (
-                    <div key={questionIndex} className="border border-gray-200 rounded-lg p-4">
+                    <div key={questionIndex} className="border border-gray-200 rounded-xl p-6 bg-white shadow-sm">
                       <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-base font-semibold text-gray-800 mb-2">
                           Question {questionIndex + 1}
                         </label>
                         <textarea
                           value={question.questionText}
                           onChange={(e) => handleQuestionChange(questionIndex, 'questionText', e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
                           rows={3}
                         />
                       </div>
 
-                      <div className="space-y-2">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <div className="space-y-3">
+                        <label className="block text-base font-semibold text-gray-800 mb-2">
                           Answer Options
                         </label>
                         {question.options.map((option, optionIndex) => (
-                          <div key={optionIndex} className="flex items-center space-x-3">
+                          <div key={optionIndex} className="flex items-center space-x-4">
                             <input
                               type="radio"
                               name={`question-${questionIndex}`}
                               value={optionIndex}
                               checked={question.correctAnswerIndex === optionIndex}
                               onChange={() => handleQuestionChange(questionIndex, 'correctAnswerIndex', optionIndex)}
-                              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                              className="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300"
                             />
                             <input
                               type="text"
                               value={option}
                               onChange={(e) => handleOptionChange(questionIndex, optionIndex, e.target.value)}
-                              className="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
                               placeholder={`Option ${optionIndex + 1}`}
                             />
                           </div>
