@@ -7,30 +7,57 @@ type ViewMode = 'teacher' | 'student'
 
 export default function ViewSwitcher() {
   const [currentView, setCurrentView] = useState<ViewMode>('teacher')
+  const [isClient, setIsClient] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
 
+  // Ensure we're on the client side
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
   // Load saved view preference from localStorage
   useEffect(() => {
-    const savedView = localStorage.getItem('eggplant-view-mode') as ViewMode
-    if (savedView && (savedView === 'teacher' || savedView === 'student')) {
-      setCurrentView(savedView)
+    if (isClient) {
+      const savedView = localStorage.getItem('eggplant-view-mode') as ViewMode
+      if (savedView && (savedView === 'teacher' || savedView === 'student')) {
+        setCurrentView(savedView)
+      }
     }
-  }, [])
+  }, [isClient])
 
   // Update view mode and save to localStorage
   const handleViewChange = (newView: ViewMode) => {
     setCurrentView(newView)
-    localStorage.setItem('eggplant-view-mode', newView)
     
-    // If we're in a teacher-specific route and switching to student view, go to student home
-    if (newView === 'student' && (pathname.includes('/lesson-plan') || pathname.includes('/generate-project') || pathname.includes('/multiple-choice-quiz') || pathname.includes('/open-ended-quiz'))) {
-      router.push('/student')
+    if (isClient) {
+      localStorage.setItem('eggplant-view-mode', newView)
     }
-    // If we're in a student-specific route and switching to teacher view, go to teacher home
-    else if (newView === 'teacher' && pathname.startsWith('/student')) {
+    
+    // Navigate to the appropriate home page based on the selected view
+    if (newView === 'student') {
+      router.push('/student')
+    } else if (newView === 'teacher') {
       router.push('/')
     }
+  }
+
+  // Don't render until client-side hydration is complete
+  if (!isClient) {
+    return (
+      <div className="view-switcher">
+        <div className="view-switcher-container">
+          <button className="view-switcher-btn active">
+            <span className="view-icon">👨‍🏫</span>
+            <span className="view-label">Teacher</span>
+          </button>
+          <button className="view-switcher-btn">
+            <span className="view-icon">🎓</span>
+            <span className="view-label">Student</span>
+          </button>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -54,3 +81,4 @@ export default function ViewSwitcher() {
     </div>
   )
 }
+

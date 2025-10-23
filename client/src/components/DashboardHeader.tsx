@@ -30,7 +30,12 @@ export default function DashboardHeader() {
           return 'Quiz'
         case '/open-ended-quiz':
           return 'Test'
+        case '/student':
+          return 'My Classes'
         default:
+          if (path.startsWith('/student/class/')) {
+            return 'Class Details'
+          }
           return 'Dashboard'
       }
     }

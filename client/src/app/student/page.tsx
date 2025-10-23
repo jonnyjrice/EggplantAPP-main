@@ -1,13 +1,14 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 export default function StudentHomePage() {
   const router = useRouter()
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedTerm, setSelectedTerm] = useState('all')
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   const handleClassClick = (classId: string) => {
     router.push(`/student/class/${classId}`)
@@ -38,6 +39,20 @@ export default function StudentHomePage() {
         return 'All School Years'
     }
   }
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   // Mock enrolled classes data for student view
   const enrolledClasses = [
@@ -145,7 +160,7 @@ export default function StudentHomePage() {
                 <span className="search-icon">🔍</span>
               </div>
               <div className="filter-container">
-                <div className="dropdown">
+                <div className="dropdown" ref={dropdownRef}>
                   <button className="dropdown-btn" onClick={toggleDropdown}>
                     <span>{getTermDisplayName(selectedTerm)}</span>
                     <span className={`dropdown-arrow ${isDropdownOpen ? 'open' : ''}`}>▼</span>
