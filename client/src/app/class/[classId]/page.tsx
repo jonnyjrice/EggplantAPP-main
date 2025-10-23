@@ -2,14 +2,14 @@
 
 import { useParams, useRouter } from 'next/navigation'
 import { useState } from 'react'
-import AIAssignmentModal from '@/components/AIAssignmentModal'
+import AubrieAssignmentModal from '@/components/AIAssignmentModal'
 import AssignmentList from '@/components/AssignmentList'
 
 export default function ClassPage() {
   const params = useParams()
   const router = useRouter()
   const classId = params.classId as string
-  const [isAIAssignmentModalOpen, setIsAIAssignmentModalOpen] = useState(false)
+  const [isAubrieAssignmentModalOpen, setIsAubrieAssignmentModalOpen] = useState(false)
 
   // Mock class data
   const classData = {
@@ -100,8 +100,8 @@ export default function ClassPage() {
     router.push('/')
   }
 
-  const handleCreateAIAssignment = () => {
-    setIsAIAssignmentModalOpen(true)
+  const handleCreateAubrieAssignment = () => {
+    setIsAubrieAssignmentModalOpen(true)
   }
 
   return (
@@ -210,12 +210,12 @@ export default function ClassPage() {
                   </div>
                 </div>
                 <div className="section-content">
-                  <div className="ai-assignment-section mb-4">
+                  <div className="assignment-creation-section mb-4">
                     <button 
-                      onClick={handleCreateAIAssignment}
-                      className="ai-assignment-btn"
+                      onClick={handleCreateAubrieAssignment}
+                      className="assignment-creation-btn"
                     >
-                      🤖 Create New AI Assignment
+                      🤖 Create New Assignment with Aubrie
                     </button>
                   </div>
                   <div className="gradeables-list">
@@ -299,10 +299,10 @@ export default function ClassPage() {
         </div>
       </div>
 
-      {/* AI Assignment Modal */}
-      <AIAssignmentModal
-        isOpen={isAIAssignmentModalOpen}
-        onClose={() => setIsAIAssignmentModalOpen(false)}
+      {/* Aubrie Assignment Modal */}
+      <AubrieAssignmentModal
+        isOpen={isAubrieAssignmentModalOpen}
+        onClose={() => setIsAubrieAssignmentModalOpen(false)}
         courseId={classId}
       />
     </div>

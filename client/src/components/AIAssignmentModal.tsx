@@ -4,7 +4,7 @@ import { useState } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { X } from 'lucide-react'
 
-interface AIAssignmentModalProps {
+interface AubrieAssignmentModalProps {
   isOpen: boolean
   onClose: () => void
   courseId: string
@@ -23,7 +23,7 @@ interface Question {
   correctAnswerIndex: number
 }
 
-export default function AIAssignmentModal({ isOpen, onClose, courseId }: AIAssignmentModalProps) {
+export default function AubrieAssignmentModal({ isOpen, onClose, courseId }: AubrieAssignmentModalProps) {
   const [formData, setFormData] = useState<FormData>({
     assignmentTitle: '',
     topicDescription: '',
@@ -156,7 +156,7 @@ export default function AIAssignmentModal({ isOpen, onClose, courseId }: AIAssig
       }
 
       const data = await response.json()
-      console.log('AI Assignment Response:', data)
+      console.log('Aubrie Assignment Response:', data)
       
       // Parse the questions from the response
       if (data.questions && Array.isArray(data.questions)) {
@@ -185,7 +185,7 @@ export default function AIAssignmentModal({ isOpen, onClose, courseId }: AIAssig
             }
           ]
         }
-        console.log('Mock AI Assignment Response:', mockResponse)
+        console.log('Mock Aubrie Assignment Response:', mockResponse)
         
         // Parse the mock questions
         setGeneratedQuestions(mockResponse.questions)
@@ -207,7 +207,7 @@ export default function AIAssignmentModal({ isOpen, onClose, courseId }: AIAssig
           <div className="bg-white rounded-lg shadow-xl p-8 w-full">
             <div className="flex items-center justify-between mb-6">
               <Dialog.Title className="text-2xl font-bold text-gray-800">
-                {showQuestions ? 'Review & Edit Generated Questions' : 'Create New AI Assignment'}
+                {showQuestions ? 'Review & Edit Generated Questions' : 'Create New Assignment with Aubrie'}
               </Dialog.Title>
               <Dialog.Close asChild>
                 <button className="text-gray-500 hover:text-gray-700 transition-colors p-1 rounded-full">

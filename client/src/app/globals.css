@@ -2093,8 +2093,8 @@ body {
   border-color: #cbd5e0;
 }
 
-/* AI Assignment Button */
-.ai-assignment-btn {
+/* Assignment Creation Button */
+.assignment-creation-btn {
   width: 100%;
   padding: 12px 16px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -2112,18 +2112,18 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.ai-assignment-btn:hover {
+.assignment-creation-btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
 }
 
-.ai-assignment-btn:active {
+.assignment-creation-btn:active {
   transform: translateY(0);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.ai-assignment-section {
+.assignment-creation-section {
   border-bottom: 1px solid #e2e8f0;
   padding-bottom: 16px;
 }

@@ -9,7 +9,7 @@ export default function ChatbotSidebar() {
   const [messages, setMessages] = useState([
     {
       type: "bot",
-      text: "Hello! I'm here to help you create educational content. What would you like to work on today?",
+      text: "Hello! I'm Aubrie, your AI assistant. I'm here to help you create educational content. What would you like to work on today?",
     },
   ])
   const [inputMessage, setInputMessage] = useState("")
@@ -108,7 +108,7 @@ export default function ChatbotSidebar() {
 
       {/* Chat Interface */}
       <div className="chat-section">
-        <h3>AI Assistant</h3>
+        <h3>Aubrie</h3>
         <div className="chat-messages">
           {messages.map((message, index) => (
             <div key={index} className={`message ${message.type}`}>
