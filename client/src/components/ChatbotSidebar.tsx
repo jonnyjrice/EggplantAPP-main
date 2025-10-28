@@ -125,7 +125,15 @@ export default function ChatbotSidebar() {
 
       {/* Chat Interface */}
       <div className="chat-section">
-        <h3>Aubrie</h3>
+        <div className="tools-header">
+          <h3>Aubrie</h3>
+          {/* Show minimize button for student pages (tools-section is hidden there) */}
+          {pathname?.startsWith('/student') && (
+            <div className="minimize-button" onClick={toggleMinimize}>
+              <span className="minimize-icon">−</span>
+            </div>
+          )}
+        </div>
         <div className="chat-messages">
           {messages.map((message, index) => (
             <div key={index} className={`message ${message.type}`}>
