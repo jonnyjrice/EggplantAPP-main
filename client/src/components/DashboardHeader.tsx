@@ -42,11 +42,21 @@ export default function DashboardHeader() {
     
     const newTitle = getPageTitle(pathname)
     if (newTitle !== currentTitle) {
-      setIsTitleChanging(true)
-      setTimeout(() => {
+      // Don't animate when switching between Teacher <-> Student home views
+      // (Dashboard <-> My Classes) — jump instantly to avoid the slide animation.
+      const isTeacherStudentToggle = (newTitle === 'My Classes' && currentTitle === 'Dashboard') ||
+        (newTitle === 'Dashboard' && currentTitle === 'My Classes')
+
+      if (isTeacherStudentToggle) {
         setCurrentTitle(newTitle)
         setIsTitleChanging(false)
-      }, 150) // Half of animation duration for smooth transition
+      } else {
+        setIsTitleChanging(true)
+        setTimeout(() => {
+          setCurrentTitle(newTitle)
+          setIsTitleChanging(false)
+        }, 150) // Half of animation duration for smooth transition
+      }
     }
   }, [pathname, currentTitle])
 
