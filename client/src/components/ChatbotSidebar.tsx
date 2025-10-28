@@ -28,6 +28,21 @@ export default function ChatbotSidebar() {
     }
   }, [])
 
+  // Update initial welcome message depending on route (student view gets a different welcome)
+  useEffect(() => {
+    const studentWelcome = "Hello! I'm Aubrie, your AI assistant. I'm here to help you on your educational journey. What can I assist with?"
+    const teacherWelcome = "Hello! I'm Aubrie, your AI assistant. I'm here to help you create educational content. What would you like to work on today?"
+    const welcome = pathname?.startsWith('/student') ? studentWelcome : teacherWelcome
+
+    setMessages((prev) => {
+      // If the conversation is only the initial bot message, replace it with the appropriate welcome.
+      if (prev.length === 1 && prev[0]?.type === 'bot') {
+        return [{ type: 'bot', text: welcome }]
+      }
+      return prev
+    })
+  }, [pathname])
+
   const navigationButtons = [
     { label: "Lesson Plan", path: "/lesson-plan", icon: "📝" },
     { label: "Project", path: "/generate-project", icon: "🎯" },
@@ -84,27 +99,29 @@ export default function ChatbotSidebar() {
 
   return (
     <div className={`chatbot-sidebar ${isCollapsing ? 'collapsing' : ''}`}>
-      {/* Tools Section with Minimize Button */}
-      <div className="tools-section">
-        <div className="tools-header">
-          <h3>Tools</h3>
-          <div className="minimize-button" onClick={toggleMinimize}>
-            <span className="minimize-icon">−</span>
+      {/* Tools Section with Minimize Button (hidden on student pages) */}
+      {!pathname?.startsWith('/student') && (
+        <div className="tools-section">
+          <div className="tools-header">
+            <h3>Tools</h3>
+            <div className="minimize-button" onClick={toggleMinimize}>
+              <span className="minimize-icon">−</span>
+            </div>
+          </div>
+          <div className="nav-buttons">
+            {navigationButtons.map((button) => (
+              <button
+                key={button.path}
+                className={`nav-btn ${pathname === button.path ? "active" : ""}`}
+                onClick={() => handleNavigation(button.path)}
+              >
+                <span className="nav-icon">{button.icon}</span>
+                {button.label}
+              </button>
+            ))}
           </div>
         </div>
-        <div className="nav-buttons">
-          {navigationButtons.map((button) => (
-            <button
-              key={button.path}
-              className={`nav-btn ${pathname === button.path ? "active" : ""}`}
-              onClick={() => handleNavigation(button.path)}
-            >
-              <span className="nav-icon">{button.icon}</span>
-              {button.label}
-            </button>
-          ))}
-        </div>
-      </div>
+      )}
 
       {/* Chat Interface */}
       <div className="chat-section">

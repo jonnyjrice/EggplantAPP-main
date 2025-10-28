@@ -8,8 +8,11 @@
   box-sizing: border-box;
 }
 
-html, body, #__next {
-  height: 100%;
+/* Make the overall app exactly the viewport height and prevent page scrolling.
+   Only inner scrollable regions should scroll (we set `.page-content` below). */
+html, body, #__next, .app {
+  height: 100vh;
+  overflow: hidden;
 }
 
 body {
@@ -19,8 +22,9 @@ body {
 
 .app {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
   background-color: #ffffff;
+  overflow: hidden; /* ensure the root doesn't scroll */
 }
 
 .main-content {
@@ -246,9 +250,22 @@ body {
 /* Page Content */
 .page-content {
   flex: 1;
+  /* by default the page wrapper does not scroll; specific pages opt-in to have
+     their inner container scroll instead (see helper page classes below) */
   overflow: hidden;
+  overflow-x: hidden;
   padding: 0;
   min-height: 0;
+}
+
+/* Per-page scroll helpers: add one of these classes to `.page-content` to
+   delegate vertical scrolling to the named inner container. */
+.page-content.scroll-classes-main .classes-main {
+  overflow-y: auto;
+}
+
+.page-content.scroll-classes-content .classes-content {
+  overflow-y: auto;
 }
 
 /* Dashboard Layout */
@@ -342,6 +359,8 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
+  /* allow children to grow and avoid forced internal scrollbars (especially in Safari) */
+  min-height: 0;
 }
 
 .classes-header {
@@ -1015,29 +1034,11 @@ body {
 
 .classes-content {
   flex: 1;
-  overflow-y: auto;
+  /* Let the parent .page-content handle scrolling so there is only one vertical scrollbar.
+     Avoid creating an inner scroll container here. */
+  overflow: visible;
   overflow-x: hidden;
   padding-right: 0.5rem;
-  scrollbar-width: thin;
-  scrollbar-color: #cbd5e0 #f7fafc;
-}
-
-.classes-content::-webkit-scrollbar {
-  width: 6px;
-}
-
-.classes-content::-webkit-scrollbar-track {
-  background: #f7fafc;
-  border-radius: 3px;
-}
-
-.classes-content::-webkit-scrollbar-thumb {
-  background: #cbd5e0;
-  border-radius: 3px;
-}
-
-.classes-content::-webkit-scrollbar-thumb:hover {
-  background: #a0aec0;
 }
 
 .classes-grid {
@@ -1046,7 +1047,8 @@ body {
   gap: 1rem;
   overflow: visible;
   width: 100%;
-  flex: 1;
+  /* don't force grid to flex-grow (can create scrollbars in some browsers) */
+  flex: 0 0 auto;
 }
 
 .class-card {
@@ -1563,6 +1565,8 @@ body {
 .chat-input {
   display: flex;
   gap: 0.5rem;
+  /* push input to bottom of the chat column (works when .chat-section is a column flex container) */
+  margin-top: auto;
 }
 
 .chat-input input {

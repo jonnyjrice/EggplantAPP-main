@@ -107,7 +107,7 @@ export default function HomePage() {
   })
 
   return (
-    <div className="page-content">
+  <div className="page-content scroll-classes-content">
       <div className="dashboard-layout">
         {/* Left Activity Feed */}
         <div className="activity-feed">

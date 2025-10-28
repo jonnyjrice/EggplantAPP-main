@@ -115,7 +115,7 @@ export default function StudentHomePage() {
   })
 
   return (
-    <div className="page-content">
+  <div className="page-content scroll-classes-main">
       <div className="student-dashboard-layout">
         {/* Left Activity Feed - Student Version */}
         <div className="activity-feed">
