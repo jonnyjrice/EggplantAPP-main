@@ -291,9 +291,11 @@ export default function ClassPage() {
               </div>
             </div>
             
-            {/* Assignments Section */}
-            <div className="assignments-section">
-              <AssignmentList courseId={classId} />
+            {/* Assignments Section (clickable like other class sections) */}
+            <div className="class-section clickable-section">
+              <div className="section-content">
+                <AssignmentList courseId={classId} />
+              </div>
             </div>
           </div>
         </div>
