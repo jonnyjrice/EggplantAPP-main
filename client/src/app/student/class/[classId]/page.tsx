@@ -23,6 +23,22 @@ export default function StudentClassPage() {
     'computer101': { title: 'Computer Science 101', subtitle: 'Programming Fundamentals', icon: '💻', instructor: 'Dr. Taylor', term: '2024-2025', currentGrade: 'A+', gradePoints: 96.1 }
   }
 
+  // Mock data for upcoming events and materials (copied from teacher view)
+  const upcomingEvents = [
+    { id: 1, title: 'Quiz: Derivatives', date: 'Tomorrow', type: 'quiz', icon: '📝' },
+    { id: 2, title: 'Assignment: Integration Problems', date: 'Next Monday', type: 'assignment', icon: '📋' },
+    { id: 3, title: 'Midterm Exam', date: 'Next Friday', type: 'exam', icon: '📊' },
+    { id: 4, title: 'Project Presentation', date: 'In 2 weeks', type: 'project', icon: '🎯' }
+  ]
+
+  const courseMaterials = [
+    { id: 1, title: 'Chapter 1: Introduction', type: 'PDF', size: '2.3 MB', icon: '📄' },
+    { id: 2, title: 'Lecture Slides - Week 1', type: 'PPTX', size: '5.1 MB', icon: '📊' },
+    { id: 3, title: 'Assignment Template', type: 'DOCX', size: '1.2 MB', icon: '📝' },
+    { id: 4, title: 'Video: Basic Concepts', type: 'MP4', size: '45.2 MB', icon: '🎥' },
+    { id: 5, title: 'Practice Problems', type: 'PDF', size: '3.8 MB', icon: '📚' }
+  ]
+
   const currentClass = classData[classId as keyof typeof classData]
 
   if (!currentClass) {
@@ -73,6 +89,15 @@ export default function StudentClassPage() {
     router.push('/student')
   }
 
+  // Navigation handlers for upcoming and materials
+  const handleUpcomingClick = () => {
+    router.push(`/student/class/${classId}/upcoming`)
+  }
+
+  const handleMaterialsClick = () => {
+    router.push(`/student/class/${classId}/materials`)
+  }
+
   return (
     <div className="student-class-page">
       <div className="student-class-container">
@@ -102,10 +127,59 @@ export default function StudentClassPage() {
 
         {/* Class Content */}
         <div className="student-class-content">
-          {/* Assignments Section (clickable like other class sections) */}
-          <div className="class-section clickable-section">
-            <div className="section-content">
-              <AssignmentList courseId={classId} />
+          {/* 2x2 Grid Layout */}
+          <div className="content-grid">
+            {/* Top Left - Upcoming */}
+            <div className="class-section clickable-section" onClick={handleUpcomingClick}>
+              <div className="section-header">
+                <h3>Upcoming</h3>
+                <button className="section-action">View All</button>
+              </div>
+              <div className="section-content">
+                <div className="upcoming-grid">
+                  {upcomingEvents.map((event) => (
+                    <div key={event.id} className="upcoming-card">
+                      <div className="upcoming-icon">{event.icon}</div>
+                      <div className="upcoming-details">
+                        <div className="upcoming-title">{event.title}</div>
+                        <div className="upcoming-date">{event.date}</div>
+                        <div className="upcoming-type">{event.type}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Top Right - Course Materials */}
+            <div className="class-section clickable-section" onClick={handleMaterialsClick}>
+              <div className="section-header">
+                <h3>Course Materials</h3>
+                <button className="section-action">View All</button>
+              </div>
+              <div className="section-content">
+                <div className="materials-list">
+                  {courseMaterials.map((material) => (
+                    <div key={material.id} className="material-item">
+                      <div className="material-icon">{material.icon}</div>
+                      <div className="material-details">
+                        <div className="material-title">{material.title}</div>
+                        <div className="material-meta">
+                          <span className="material-type">{material.type}</span>
+                          <span className="material-size">{material.size}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Assignments Section */}
+            <div className="class-section clickable-section">
+              <div className="section-content">
+                <AssignmentList courseId={classId} />
+              </div>
             </div>
           </div>
         </div>

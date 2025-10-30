@@ -2594,9 +2594,10 @@ body {
 }
 
 .student-class-container {
-  height: 100%;
+  flex: 1;
   display: flex;
   flex-direction: column;
+  min-height: 0;
 }
 
 .student-class-header {
@@ -2610,6 +2611,8 @@ body {
   flex: 1;
   padding: 2rem;
   overflow-y: auto;
+  min-height: 0;
+  position: relative;
 }
 
 .student-class-card {
